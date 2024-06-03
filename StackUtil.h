@@ -1,6 +1,6 @@
 #pragma once
 #include "DataUtil.h"
-
+// node, createNode, pushNode, peekNode, popNode, deleteStack, printStack
 typedef struct StackNode {
 	Student* info;
 	struct StackNode* next;

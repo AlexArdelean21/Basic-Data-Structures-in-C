@@ -1,6 +1,6 @@
 #pragma once
 #include "DataUtil.h"
-
+// Node, createlistnode, insetheadsl, insettaildl, printlist, deleteNode, deleteList
 typedef struct Node {
 	Student* info;
 	struct Node* next;
@@ -45,4 +45,43 @@ void printList(Node* head) {
 			head = head->next;
 		}
 	}
+}
+
+void deleteNode(Node* node) {
+	if (node != NULL) {
+		deleteStudent(node->info);
+		free(node);
+	}
+}
+
+void deleteList(Node** head) {
+	while ((*head) != NULL) {
+		Node* tmp = *head;
+		*head = tmp->next;
+		deleteStudent(tmp->info);
+		free(tmp);
+	}
+}
+
+void deleteNodeByKey(Node** head, int key) {
+	if (*head == NULL) return;
+
+	Node* temp = *head;
+	if ((*head)->info->reference == key && temp != NULL){
+		(*head) = temp->next;
+		free(temp);
+		return;
+	}
+
+	Node* prev = NULL;
+	while (temp != NULL && temp->info->reference != key) {
+		prev = temp;
+		temp = temp->next;
+	}
+
+	if (temp == NULL) return;
+
+	prev->next = temp->next;
+	free(temp);
+
 }
