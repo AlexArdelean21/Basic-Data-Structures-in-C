@@ -6,7 +6,7 @@
 #define LINE_MAX 256
 
 void main() {
-	Node* head = NULL;
+	ListNode* head = NULL;
 	//StackNode* stack = NULL;
 	QueueNode* tail = NULL;
 	FILE* pFile = fopen("Data.txt", "r");
@@ -24,13 +24,14 @@ void main() {
 			token = strtok(NULL, delimiter);
 			ref = atoi(token);
 			Student* stud = createStudent(name, income, ref);
-			insertHeadSL(&head, stud);
+			insertHeadList(&head, stud);
 			//pushNode(&stack, stud);
   			enqueue(&tail, stud);
 		}
 		printList(head);
 		deleteNodeByKey(&head, 255);
 		printList(head);
+		// 
 		//printStack(stack);
 		//printQueue(tail);
 	}

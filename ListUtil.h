@@ -1,87 +1,83 @@
 #pragma once
 #include "DataUtil.h"
-// Node, createlistnode, insetheadsl, insettaildl, printlist, deleteNode, deleteList
-typedef struct Node {
+typedef struct ListNode {
 	Student* info;
 	struct Node* next;
 	struct Node* prev;
-}Node;
+}ListNode;
 
-Node* createListNode(Student* stud) {
-	Node* node = NULL;
-	node = (Node*)malloc(sizeof(Node));
-	node->info = stud;
+ListNode* createListNode(Student* info) {
+	ListNode* node = NULL;
+	node = (ListNode*)malloc(sizeof(ListNode));
+	node->info = info;
 	node->next = node->prev = NULL;
 	return node;
 }
-void insertHeadSL(Node** head, Student* stud) {
-	Node* node = createListNode(stud);
-	node->next = *head;
+
+void insertHeadList(ListNode** head, Student* stud) {
+	ListNode* node = createListNode(stud);
+	node->next = (*head);
 	*head = node;
 }
 
-Node* insetTailDl(Node* head, Student* stud) {
-	Node* node = createListNode(stud);
-	if (head == NULL) {
-		return node;
-	}
+void insetTailDL(ListNode** head, Student* stud) {
+	ListNode* node = createListNode(stud);
+	if (*head == NULL) *head = node;
 	else {
-		Node* tmp = head;
-		while (tmp->next != NULL) {
+		ListNode* tmp = (*head);
+		while (tmp->next) {
 			tmp = tmp->next;
 		}
 		node->prev = tmp;
 		tmp->next = node;
-		return head;
-	}
-}
-
-void printList(Node* head) {
-	printf("This is a linked list!\n\n");
-	if (head == NULL) printf("The list is empty!");
-	else {
-		while (head) {
-			printStudent(head->info);
-			head = head->next;
-		}
-	}
-}
-
-void deleteNode(Node* node) {
-	if (node != NULL) {
-		deleteStudent(node->info);
-		free(node);
-	}
-}
-
-void deleteList(Node** head) {
-	while ((*head) != NULL) {
-		Node* tmp = *head;
-		*head = tmp->next;
-		deleteStudent(tmp->info);
 		free(tmp);
 	}
 }
 
-void deleteNodeByKey(Node** head, int key) {
-	if (*head == NULL) return;
+void printList(ListNode* head) {
+	printf("\t\tThis is a Linked list:\n");
 
-	Node* temp = *head;
-	if ((*head)->info->reference == key && temp != NULL){
-		(*head) = temp->next;
-		free(temp);
+	if (head == NULL) {
+		printf("The list is empty!");
 		return;
 	}
 
-	Node* prev = NULL;
-	while (temp != NULL && temp->info->reference != key) {
-		prev = temp;
-		temp = temp->next;
+	while (head->next) {
+		printStudent(head->info);
+		head = head->next;
 	}
-
-	if (temp == NULL) return;
-
-	prev->next = temp->next;
-	free(temp);
-
+	printStudent(head->info);
+	printf("\n");
 }
+
+void deleteNode(ListNode* node) {
+	if (node == NULL) return;
+
+	deleteStudent(node->info);
+	free(node);
+}
+
+void deleteList(ListNode** head) {
+	if ((*head) == NULL) return;
+
+	while (*head != NULL) {
+		ListNode* tmp = *head;
+		*head = tmp->next;
+		deleteNode(tmp);
+	}
+}
+
+void deleteNodeByKey(ListNode** head, int key) {
+	ListNode** current = head;
+
+	while (*current) {
+		if ((*current)->info->reference == key) {
+			ListNode* tmp = *current;
+			*current = (*current)->next;
+			free(tmp);
+		}
+		current = &((*current)->next);
+	}
+}
+
+// Node, createlistnode, insetheadsl, insettaildl, printlist, deleteNode, deleteList

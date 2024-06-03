@@ -19,7 +19,7 @@ Student* createStudent(char* name, float income, int ref) {
 
 void printStudent(Student* stud) {
 	if (stud != NULL) {
-		printf("1Name: %s, income: %f, reference: %d\n", stud->name, stud->income, stud->reference);
+		printf("Name: %s, income: %f, reference: %d\n", stud->name, stud->income, stud->reference);
 	}
 }
 
