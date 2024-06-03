@@ -1,6 +1,6 @@
 #pragma once
 #include "DataUtil.h"
-// node, createNode, pushNode, peekNode, popNode, deleteStack, printStack
+
 typedef struct StackNode {
 	Student* info;
 	struct StackNode* next;
@@ -13,43 +13,45 @@ StackNode* createStackNode(Student* info) {
 	return node;
 }
 
-void pushNode(StackNode** stack, Student* info) {
-	StackNode* node = createStackNode(info);
+void pushStackNode(StackNode** stack, Student* stud) {
+	StackNode* node = createStackNode(stud);
 	node->next = *stack;
 	*stack = node;
 }
 
-Student* peekNode(StackNode* stack) {
-	Student* stud = NULL;
-	if (stack != NULL) {
-		stud = stack->info;
-	}
-	return stud;
+Student* peekStackNode(StackNode* stack) {
+	if (stack == NULL) return NULL;
+
+	return stack->info;
 }
 
-Student* popNode(StackNode** stack) {
-	Student* stud = NULL;
-	if (stack != NULL) {
-		stud = (*stack)->info;
-		StackNode* tmp = *stack;
-		*stack = tmp->next;
-		free(tmp);
-	}
-	return stud;
+Student* popStackNode(StackNode** stack) {
+	if (*stack == NULL) return NULL;
+
+	StackNode* tmp = *stack;
+	Student* info = tmp->info;
+	*stack = tmp->next;
+	free(tmp);
+	 
+	return info;
 }
 
 void deleteStack(StackNode** stack) {
-	while (*stack) {
-		popNode(stack);
+	while (stack != NULL) {
+		Student* info = popStackNode(stack);
+		deleteStudent(info);
 	}
 }
 
-// write a function to print the stack
 void printStack(StackNode* stack) {
-	printf("This is a stack!\n\n");
-	if (stack == NULL) printf("The stack is empty!");
-	while (stack) {
+	printf("\t\tThis is a Stack:\n");
+
+	while (stack->next) {
 		printStudent(stack->info);
 		stack = stack->next;
 	}
+	printStudent(stack->info);
+
+	printf("\n");
 }
+

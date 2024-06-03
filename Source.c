@@ -7,8 +7,9 @@
 
 void main() {
 	ListNode* head = NULL;
-	//StackNode* stack = NULL;
+	StackNode* stack = NULL;
 	QueueNode* tail = NULL;
+
 	FILE* pFile = fopen("Data.txt", "r");
 	if (pFile) {
 		char delimiter[] = ",";
@@ -25,14 +26,21 @@ void main() {
 			ref = atoi(token);
 			Student* stud = createStudent(name, income, ref);
 			insertHeadList(&head, stud);
-			//pushNode(&stack, stud);
+			pushStackNode(&stack, stud);
   			enqueue(&tail, stud);
 		}
-		printList(head);
-		deleteNodeByKey(&head, 255);
-		printList(head);
-		// 
+		//		Linked List
+		//printList(head);
+		//deleteNodeByKey(&head, 255);
+		//printList(head);
+
+		//		Stack
 		//printStack(stack);
+		//printStudent(popStackNode(&stack));
+		//printf("\n");
+		//printStack(stack);
+		
+		//		Queue
 		//printQueue(tail);
 	}
 }
