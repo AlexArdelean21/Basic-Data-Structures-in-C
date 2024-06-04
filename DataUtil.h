@@ -25,7 +25,7 @@ void printStudent(Student* stud) {
 
 void deleteStudent(Student* stud) {
 	if (stud != NULL) {
-		free(stud->name);
+		free(stud->name); // error here when i delete a student  from the hash table
 		free(stud);
 	}
 }

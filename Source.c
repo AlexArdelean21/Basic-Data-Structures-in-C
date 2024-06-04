@@ -3,12 +3,16 @@
 #include "ListUtil.h"
 #include "StackUtil.h"
 #include "QueueUtil.h"
+#include "HashUtil.h"
+
 #define LINE_MAX 256
 
 void main() {
 	ListNode* head = NULL;
 	StackNode* stack = NULL;
 	QueueNode* tail = NULL;
+	HashNode* hashTable = NULL;
+	//memset(hashTable, 0, sizeof(hashTable));
 
 	FILE* pFile = fopen("Data.txt", "r");
 	if (pFile) {
@@ -25,9 +29,12 @@ void main() {
 			token = strtok(NULL, delimiter);
 			ref = atoi(token);
 			Student* stud = createStudent(name, income, ref);
+
+
 			insertHeadList(&head, stud);
 			pushStackNode(&stack, stud);
   			enqueue(&tail, stud);
+			pushHT(&hashTable, stud);
 		}
 		//		Linked List
 		//printList(head);
@@ -42,5 +49,15 @@ void main() {
 		
 		//		Queue
 		//printQueue(tail);
+		//printStudent(dequeue(tail));
+		//printf("\n");
+		//printQueue(tail);
+
+		//		HashTable
+		// remove the "\n: from printStudent before using this
+		printHashTable(hashTable);
+		printStudent(getHT(hashTable, "Popa Maria"));
+		deleteHTValue(hashTable, "Popa Maria");
+		printHashTable(hashTable);
 	}
 }
