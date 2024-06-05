@@ -4,15 +4,17 @@
 #include "StackUtil.h"
 #include "QueueUtil.h"
 #include "HashUtil.h"
+#include "TreeUtil.h"
 
 #define LINE_MAX 256
 
 void main() {
 	ListNode* head = NULL;
-	StackNode* stack = NULL;
-	QueueNode* tail = NULL;
-	HashNode* hashTable = NULL;
+	//StackNode* stack = NULL;
+	//QueueNode* tail = NULL;
+	//HashNode* hashTable = NULL;
 	//memset(hashTable, 0, sizeof(hashTable));
+	TreeNode* root = NULL;
 
 	FILE* pFile = fopen("Data.txt", "r");
 	if (pFile) {
@@ -32,13 +34,14 @@ void main() {
 
 
 			insertHeadList(&head, stud);
-			pushStackNode(&stack, stud);
-  			enqueue(&tail, stud);
-			pushHT(&hashTable, stud);
+			//pushStackNode(&stack, stud);
+  	//		enqueue(&tail, stud);
+			//pushHT(&hashTable, stud);
+			insertTreeNode(&root, stud);
 		}
 		//		Linked List
 		//printList(head);
-		//deleteNodeByKey(&head, 255);
+		//deleteNodeByKeyList(&head, 255);
 		//printList(head);
 
 		//		Stack
@@ -55,11 +58,19 @@ void main() {
 
 		//		HashTable
 		// remove the "\n: from printStudent before using this
-		printHashTable(hashTable);
-		printf("\n");
-		printStudent(getHT(hashTable, "Petre Laura"));
+		//printHashTable(hashTable);
+		//printf("\n");
+		//printStudent(getHT(hashTable, "Petre Laura"));
 
-		deleteHTValue(hashTable, "Petre Laura");
-		printHashTable(hashTable);
+		//deleteHTValue(hashTable, "Petre Laura");
+		//printHashTable(hashTable);
+
+		//		Tree
+		DisplayTree(root, 0);
+		printf("\n");
+		printStudent(getMax(root));
+		printf("\n");
+		deleteNodeByKey(root, 4323.2); // doesn't work
+		DisplayTree(root, 0);
 	}
 }

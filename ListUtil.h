@@ -67,7 +67,7 @@ void deleteList(ListNode** head) {
 	}
 }
 
-void deleteNodeByKey(ListNode** head, int key) {
+void deleteNodeByKeyList(ListNode** head, int key) {
 	ListNode** current = head;
 
 	while (*current) {

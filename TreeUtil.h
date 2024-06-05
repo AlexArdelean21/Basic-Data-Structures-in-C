@@ -14,15 +14,15 @@ TreeNode* createTreeNode(Student* info) {
 	return node;
 }
 
-void insert(TreeNode** root, Student* info) {
+void insertTreeNode(TreeNode** root, Student* info) {
 	if (*root == NULL) {
 		*root = createTreeNode(info);
 	}
 	else {
 		if ((*root)->info->income > info->income)
-			insert(&(*root)->left, info);
+			insertTreeNode(&(*root)->left, info);
 		else if ((*root)->info->income < info->income)
-			insert(&(*root)->right, info);
+			insertTreeNode(&(*root)->right, info);
 	}
 }
 
@@ -37,13 +37,13 @@ void postOrderPrint(TreeNode* root) {
 
 	postOrderPrint(root->left);
 	postOrderPrint(root->right);
-	printf("Student: %s, income: %d\n", root->info->name, root->info->income);
+	printf("Student: %s, income: %f\n", root->info->name, root->info->income);
 }
 
 void preOrderPrint(TreeNode* root) {
 	if (root == NULL) return;
 
-	printf("Student: %s, income: %d\n", root->info->name, root->info->income);
+	printf("Student: %s, income: %f\n", root->info->name, root->info->income);
 	preOrderPrint(root->left);
 	preOrderPrint(root->right);
 }
@@ -52,7 +52,7 @@ void inOrderPrint(TreeNode* root) {
 	if (root == NULL) return;
 
 	inOrderPrint(root->left);
-	printf("Student: %s, income: %d\n", root->info->name, root->info->income);
+	printf("Student: %s, income: %f\n", root->info->name, root->info->income);
 	inOrderPrint(root->right);
 }
 
@@ -60,9 +60,10 @@ void DisplayTree(TreeNode* root, int level) {
 	if (root != NULL) {
 		for (int i = 1; i <= level; i++)
 			printf("\t");
-		printf("Student: %s, income: %d\n", root->info->name, root->info->income);
-		DisplayTree(root->left, level++);
-		DisplayTree(root->right, level++);
+		printf("Student: %s, income: %f\n", root->info->name, root->info->income);
+		level++;
+		DisplayTree(root->left, level);
+		DisplayTree(root->right, level);
 	}
 }
 
@@ -70,15 +71,14 @@ void deleteFullNode(TreeNode** root, TreeNode** rsubtree) {
 	if ((*rsubtree)->left)
 		deleteFullNode(root, &(*rsubtree)->left);
 	else {
-		deleteStudent((*root)->info);
-		(*root)->info = (*rsubtree)->info;
 		TreeNode* tmp = (*rsubtree);
+		(*root)->info = (*rsubtree)->info;
 		(*rsubtree) = tmp->right;
 		free(tmp);
 	}
 }
 
-void deleteNodeByKey(TreeNode** root, int key) {
+ void deleteNodeByKey(TreeNode** root, float key) { // income
 	if (*root == NULL) return;
 
 	if ((*root)->info->income > key)
@@ -91,7 +91,7 @@ void deleteNodeByKey(TreeNode** root, int key) {
 			free((*root));
 			*root = NULL;
 		}
-		else if ((*root)->left == NULL && (*root)->right == NULL){
+		else if ((*root)->left == NULL || (*root)->right == NULL){
 			TreeNode* tmp = *root;
 			*root = (*root)->left ? (*root)->left : (*root)->right;
 			deleteStudent(tmp->info);
