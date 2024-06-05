@@ -21,6 +21,9 @@
     <ClCompile Include="StackUtil.h">
       <Filter>Header Files</Filter>
     </ClCompile>
+    <ClCompile Include="TeeUtil.h">
+      <Filter>Header Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Data.txt">

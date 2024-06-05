@@ -130,6 +130,7 @@
   <ItemGroup>
     <ClCompile Include="Source.c" />
     <ClCompile Include="StackUtil.h" />
+    <ClCompile Include="TeeUtil.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Data.txt" />

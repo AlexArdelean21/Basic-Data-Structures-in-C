@@ -34,14 +34,14 @@ void pushHT(HashNode*** hashTable, Student* stud) {
 Student* getHT(HashNode** hashTable, const char* key) {
 	int hashValue = fHash(key);
 	HashNode* head = hashTable[hashValue];
-	
+
 	while (head) {
 		if (strcmp(head->info->name, key) == 0) {
 			return head->info;
 		}
 		head = head->next;
 	}
-	
+
 	return NULL;
 }
 
@@ -53,7 +53,7 @@ void deleteHTValue(HashNode** hashTable, const char* key) {
 
 	if (strcmp(head->info->name, key) == NULL) {
 		hashTable[hashValue] = head->next;
-		deleteStudent(head->info);
+		//deleteStudent(head->info);
 		free(head);
 	}
 	else {

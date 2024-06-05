@@ -56,8 +56,10 @@ void main() {
 		//		HashTable
 		// remove the "\n: from printStudent before using this
 		printHashTable(hashTable);
-		printStudent(getHT(hashTable, "Popa Maria"));
-		deleteHTValue(hashTable, "Popa Maria");
+		printf("\n");
+		printStudent(getHT(hashTable, "Petre Laura"));
+
+		deleteHTValue(hashTable, "Petre Laura");
 		printHashTable(hashTable);
 	}
 }
